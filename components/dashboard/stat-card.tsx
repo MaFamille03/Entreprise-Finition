@@ -1,0 +1,2 @@
+import type {ReactNode} from 'react';
+export function StatCard({label,value,detail,icon}:{label:string;value:string;detail?:string;icon?:ReactNode}){return <div className="card"><div style={{display:'flex',justifyContent:'space-between'}}><span className="stat-label">{label}</span>{icon}</div><div className="stat-value">{value}</div>{detail&&<div className="muted" style={{fontSize:12,marginTop:6}}>{detail}</div>}</div>}

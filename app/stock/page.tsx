@@ -1,0 +1,8 @@
+import { Page } from '@/components/ui/page';
+import { getDashboardData } from '@/lib/queries';
+import { formatMoney } from '@/lib/format';
+import { ItemManager } from './item-manager';
+export default async function Stock(){
+ const data=await getDashboardData(); const items=data?.items??[]; const value=items.reduce((s:number,x:any)=>s+Number(x.stock_quantity||0)*Number(x.purchase_price||0),0); const low=items.filter((x:any)=>Number(x.stock_quantity)<=Number(x.min_stock_quantity)); const out=items.filter((x:any)=>Number(x.stock_quantity)<=0);
+ return <Page title="Stock" description="Articles, matériaux, entrées, sorties et inventaires." action={<ItemManager/>}><div className="grid-cards"><div className="card"><div className="stat-label">Articles actifs</div><div className="stat-value">{items.length}</div></div><div className="card"><div className="stat-label">Valeur du stock</div><div className="stat-value">{formatMoney(value)}</div></div><div className="card"><div className="stat-label">Stock faible</div><div className="stat-value">{low.length}</div></div><div className="card"><div className="stat-label">Ruptures</div><div className="stat-value">{out.length}</div></div></div><div style={{height:18}}/><div className="card table-wrap"><table className="data-table"><thead><tr><th>Référence</th><th>Désignation</th><th>Unité</th><th>Stock</th><th>Seuil</th><th>Prix achat</th><th>Prix vente</th></tr></thead><tbody>{items.map((x:any)=><tr key={x.id}><td>{x.sku||'—'}</td><td>{x.name}</td><td>{x.unit}</td><td>{x.stock_quantity}</td><td>{x.min_stock_quantity}</td><td>{formatMoney(x.purchase_price)}</td><td>{formatMoney(x.sale_price)}</td></tr>)}{items.length===0&&<tr><td colSpan={7}>Aucun article.</td></tr>}</tbody></table></div></Page>;
+}
