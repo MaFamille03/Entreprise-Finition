@@ -15,6 +15,8 @@ import {
   FileInput,
   LayoutDashboard,
   LogOut,
+  Menu,
+  X,
   ReceiptText,
   Settings,
   ShoppingCart,
@@ -101,6 +103,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const [profileOpen, setProfileOpen] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [context, setContext] = useState<UserContext>({});
 
   useEffect(() => {
@@ -118,6 +121,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setProfileOpen(false);
+    setMobileNavOpen(false);
   }, [pathname]);
 
   async function logout() {
@@ -136,7 +140,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="app-shell">
-      <aside className="sidebar">
+      {mobileNavOpen && <button className="mobile-nav-backdrop" aria-label="Fermer le menu" onClick={() => setMobileNavOpen(false)} />}
+      <aside className={`sidebar${mobileNavOpen ? ' sidebar-open' : ''}`}>
         <div className="sidebar-brand">
           <Link href="/dashboard" className="brand-mark" aria-label="Retour au tableau de bord">
             <span className="brand-symbol">F</span>
@@ -185,6 +190,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <div className="main">
         <header className="topbar">
           <div className="topbar-left">
+            <button
+              type="button"
+              className="mobile-menu-btn"
+              aria-label={mobileNavOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+              aria-expanded={mobileNavOpen}
+              onClick={() => setMobileNavOpen((open) => !open)}
+            >
+              {mobileNavOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
             <div className="topbar-page">
               <span className="topbar-kicker">Finition ERP</span>
               <strong>{title}</strong>
