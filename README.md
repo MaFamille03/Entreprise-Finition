@@ -11,8 +11,8 @@ Application web de gestion intégrée pour une entreprise de finition en constru
 
 ## Modules
 1. Tableau de bord
-2. Ventes
-3. Stock
+2. Prestations & facturation
+3. Matériaux & consommables
 4. Achats
 5. Contacts
 6. Chantiers
@@ -47,6 +47,7 @@ Appliquer **dans l'ordre** toutes les migrations de `supabase/migrations/` :
 0009_role_policy_hardening.sql
 0010_view_isolation_and_finance_policies.sql
 0011_remove_google_drive.sql
+0012_treasury_ledger.sql
 ```
 
 Ne pas exécuter les migrations dans un ordre différent.
@@ -61,4 +62,8 @@ Configurer les mêmes variables d'environnement dans le projet Vercel, puis dép
 
 ## Important
 
-La vérification statique a été exécutée, mais le build complet n'a pas pu être exécuté dans l'environnement de génération car l'installation de `node_modules` a dépassé le délai disponible. Le projet doit donc être validé avec `npm install`, `npm run typecheck` et `npm run build` dans l'environnement de développement ou CI avant la mise en production.
+Le tableau de bord est dédié au pilotage des prestations, des créances, des chantiers et de la trésorerie. L’import/export est disponible uniquement dans le module dédié.
+
+Avant la mise en production, exécuter `npm install`, `npm run typecheck` et `npm run build`. Les dépendances n’ont pas pu être installées dans l’environnement de correction (délai réseau), le build complet n’a donc pas été confirmé ici.
+
+Le ZIP de livraison exclut volontairement `.git` : l’archive source reçue contient des références Git dupliquées et cette métadonnée semble liée à l’erreur `bad object refs/heads/main (2)`. Ne remplacez pas votre dépôt Git par une archive ZIP et ne supprimez pas votre `.git` local. Copiez uniquement les fichiers du projet après avoir conservé une sauvegarde.
