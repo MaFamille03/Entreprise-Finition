@@ -23,3 +23,18 @@ export async function getDashboardData() {
   ]);
   return { sales: sales.data ?? [], purchases: purchases.data ?? [], items: items.data ?? [], contacts: contacts.data ?? [], projects: projects.data ?? [], accounts: accounts.data ?? [], transactions: transactions.data ?? [] };
 }
+
+
+/** Données complètes du journal de trésorerie : aucune limite d'historique. */
+export async function getTreasuryData() {
+  const { supabase, profile } = await getCurrentUserContext();
+  if (!profile?.company_id) return null;
+  const companyId = profile.company_id;
+  const [accounts, transactions] = await Promise.all([
+    supabase.from('financial_accounts').select('id,name,type,opening_balance,opening_balance_date,current_balance').eq('company_id', companyId).eq('is_active', true).order('name'),
+    supabase.from('financial_transactions').select('id,amount,type,transaction_date,label,account_id,reference,observation,created_at').eq('company_id', companyId).order('transaction_date', { ascending: true }).order('created_at', { ascending: true }),
+  ]);
+  if (accounts.error) throw new Error(`Impossible de charger les comptes : ${accounts.error.message}`);
+  if (transactions.error) throw new Error(`Impossible de charger le journal : ${transactions.error.message}`);
+  return { accounts: accounts.data ?? [], transactions: transactions.data ?? [] };
+}
