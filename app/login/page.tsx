@@ -256,7 +256,7 @@ export default function LoginPage() {
       </section>
 
       <section className="auth-form-panel">
-        <div className="auth-card">
+        <div className={`auth-card ${mode === 'register' ? 'auth-card-register' : 'auth-card-login'}`} data-auth-mode={mode}>
           <div className="auth-card-header">
             <div className="auth-mobile-logo">
               <Building2 size={20} />
@@ -303,7 +303,7 @@ export default function LoginPage() {
             </div>
           )}
 
-          <form onSubmit={submit} className="auth-form">
+          <form onSubmit={submit} className={`auth-form ${mode === 'register' ? 'auth-form-register' : 'auth-form-login'}`}>
             {mode === 'register' && !forgotMode && !resetMode && (
               <div className="auth-field">
                 <label htmlFor="fullName">Nom complet</label>
