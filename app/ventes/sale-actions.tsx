@@ -13,9 +13,9 @@ export function SaleActions({ saleId, companyId, validated }: { saleId: string; 
     setBusy(true); setMessage('');
     const supabase = createBrowserClient(url, key);
     const { error } = await supabase.rpc('validate_sale', { p_sale_id: saleId });
-    setMessage(error ? error.message : 'Vente validée et stock mis à jour.');
+    setMessage(error ? error.message : 'Document de prestation validé.');
     setBusy(false);
     if (!error) window.location.reload();
   }
-  return <button className="btn btn-primary" disabled={busy || validated} onClick={validate}>{busy ? 'Validation…' : validated ? 'Validée' : 'Valider la vente'}</button>;
+  return <button className="btn btn-primary" disabled={busy || validated} onClick={validate}>{busy ? 'Validation…' : validated ? 'Validée' : 'Valider le document'}</button>;
 }

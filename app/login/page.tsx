@@ -234,18 +234,18 @@ export default function LoginPage() {
           <span className="auth-eyebrow">FINITION ERP</span>
           <h1>Gérez votre activité avec précision.</h1>
           <p>
-            Ventes, achats, stocks, chantiers, trésorerie et administration réunis
+            Prestations, chantiers, coûts, trésorerie et administration réunis
             dans un seul espace de gestion.
           </p>
 
           <div className="auth-benefits">
             <div>
               <CheckCircle2 size={18} />
-              <span>Gestion commerciale centralisée</span>
+              <span>Devis et facturation des prestations</span>
             </div>
             <div>
               <CheckCircle2 size={18} />
-              <span>Suivi des stocks et des chantiers</span>
+              <span>Suivi des coûts et des chantiers</span>
             </div>
             <div>
               <ShieldCheck size={18} />

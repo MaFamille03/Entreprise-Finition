@@ -35,7 +35,7 @@ type UserContext = {
 const roleLabels: Record<Role, string> = {
   admin: 'Administrateur',
   director: 'Directeur',
-  sales: 'Commercial',
+  sales: 'Chargé clientèle',
   cashier: 'Caissier',
   warehouse: 'Magasinier',
   accountant: 'Comptable',
@@ -53,9 +53,9 @@ const navigation = [
   {
     label: 'Opérations',
     items: [
-      { href: '/ventes', label: 'Ventes', icon: ReceiptText },
+      { href: '/ventes', label: 'Prestations & facturation', icon: ReceiptText },
       { href: '/achats', label: 'Achats', icon: ShoppingCart },
-      { href: '/stock', label: 'Stock & articles', icon: Boxes },
+      { href: '/stock', label: 'Matériaux & consommables', icon: Boxes },
       { href: '/contacts', label: 'Clients & contacts', icon: ContactRound },
       { href: '/chantiers', label: 'Chantiers', icon: Building2 },
     ],
@@ -77,9 +77,9 @@ const navigation = [
 
 const pageTitles: Record<string, string> = {
   '/dashboard': 'Tableau de bord',
-  '/ventes': 'Ventes',
+  '/ventes': 'Prestations & facturation',
   '/achats': 'Achats',
-  '/stock': 'Stock & articles',
+  '/stock': 'Matériaux & consommables',
   '/contacts': 'Clients & contacts',
   '/chantiers': 'Chantiers',
   '/caisse': 'Trésorerie',
@@ -177,7 +177,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <div className="sidebar-footer-icon"><ClipboardList size={15} /></div>
           <div>
             <strong>Gestion centralisée</strong>
-            <span>Ventes, stock, chantiers et finances</span>
+            <span>Prestations, chantiers, coûts et finances</span>
           </div>
         </div>
       </aside>

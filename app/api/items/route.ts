@@ -29,7 +29,7 @@ export async function PATCH(request: Request) {
   const body = await request.json();
   if (!body.id) return NextResponse.json({ error: 'Article manquant' }, { status: 400 });
   const patch = { name: String(body.name ?? '').trim(), sku: body.sku?.trim() || null, item_type: body.item_type || 'material', unit: body.unit || 'pcs', purchase_price: Number(body.purchase_price || 0), sale_price: Number(body.sale_price || 0), vat_rate: Number(body.vat_rate ?? 18), min_stock_quantity: Number(body.min_stock_quantity || 0), is_stockable: body.is_stockable !== false };
-  if (!patch.name || patch.purchase_price < 0 || patch.sale_price < 0 || patch.min_stock_quantity < 0) return NextResponse.json({ error: 'Données article invalides' }, { status: 400 });
+  if (!patch.name || patch.purchase_price < 0 || patch.sale_price < 0 || patch.min_stock_quantity < 0) return NextResponse.json({ error: 'Données matériau invalides' }, { status: 400 });
   const { data, error } = await supabase.from('items').update(patch).eq('id', body.id).eq('company_id', companyId).select('*').single();
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
   return NextResponse.json({ data });
